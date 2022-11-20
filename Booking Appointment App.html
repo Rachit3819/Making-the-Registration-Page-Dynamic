@@ -39,18 +39,17 @@
                         console.log(res)})
                     .catch((err)=>{
                         console.log(err)})
-
-                        
             }
             window.addEventListener("DOMContentLoaded", ()=>{
-                const localStorageObj=localStorage
-                const localStorageKeys=Object.keys(localStorageObj)
-                for(var i=0;i<localStorageKeys.length;i++){
-                    const keys=localStorageKeys[i]
-                    const userDetailString=localStorageObj[keys]
-                    const userDetailObj=JSON.parse(userDetailString)
-                    showNewUserOnScreen(userDetailObj)
-                }
+                axios.get("https://crudcrud.com/api/9871305fba73412d824efe2b67bde99b/appoinmentBooking")
+                    .then((res)=>{
+                        console.log(res)
+                        for (var i=0;i<res.data.length;i++){
+                        showNewUserOnScreen(res.data[i])
+                        }
+                    })
+                    .catch((err)=>{
+                        console.log(err)})
             })
             
             function showNewUserOnScreen(user){
