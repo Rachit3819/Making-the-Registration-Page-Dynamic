@@ -33,7 +33,7 @@
                     emailId,
                 }
 
-                axios.post("https://crudcrud.com/api/9871305fba73412d824efe2b67bde99b/appoinmentBooking",obj)
+                axios.post("https://crudcrud.com/api/6b243e61316045d9a7282470a8bc65d6/appoinmentdata",obj)
                     .then((res)=>{
                         showNewUserOnScreen(res.data)
                         console.log(res)})
@@ -41,7 +41,7 @@
                         console.log(err)})
             }
             window.addEventListener("DOMContentLoaded", ()=>{
-                axios.get("https://crudcrud.com/api/9871305fba73412d824efe2b67bde99b/appoinmentBooking")
+                axios.get("https://crudcrud.com/api/6b243e61316045d9a7282470a8bc65d6/appoinmentdata")
                     .then((res)=>{
                         console.log(res)
                         for (var i=0;i<res.data.length;i++){
@@ -56,12 +56,12 @@
                 const parentNode=document.getElementById('List Of User Details')
                 const childHTML=`<li id=${user._id}> ${user.name} - ${user.emailId}
                                     <button onClick=deleteUser('${user._id}')> Delete User </button>
-                                    <button onClick=editUserDetails('${user._id}','${user.name}')> Edit User </button>
+                                    <button onClick=editUserDetails('${user.emailId}','${user.name}','${user._id}')> Edit User </button>
                                     </li>`
                 parentNode.innerHTML=parentNode.innerHTML + childHTML
             }
             function deleteUser(userId){
-            axios.delete(`https://crudcrud.com/api/9871305fba73412d824efe2b67bde99b/appoinmentBooking/${userId}`)
+            axios.delete(`https://crudcrud.com/api/6b243e61316045d9a7282470a8bc65d6/appoinmentdata/${userId}`)
         
                 .then((res)=>{
                     removeFromScreen(userId)
@@ -75,7 +75,8 @@
                 const childNodeToBeDeleted=document.getElementById(userId)
                 parentNode.removeChild(childNodeToBeDeleted)
             }
-            function editUserDetails(emailId,name){
+            function editUserDetails(emailId,name,userId){
+          
                 document.getElementById('email').value=emailId
                 document.getElementById('username').value=name
                 deleteUser(userId)
