@@ -54,26 +54,31 @@
             
             function showNewUserOnScreen(user){
                 const parentNode=document.getElementById('List Of User Details')
-                const childHTML=`<li id=${user.emailId}> ${user.name} - ${user.emailId}
-                                    <button onClick=deleteUser('${user.emailId}')> Delete User </button>
-                                    <button onClick=editUserDetails('${user.emailId}','${user.name}')> Edit User </button>
+                const childHTML=`<li id=${user._id}> ${user.name} - ${user.emailId}
+                                    <button onClick=deleteUser('${user._id}')> Delete User </button>
+                                    <button onClick=editUserDetails('${user._id}','${user.name}')> Edit User </button>
                                     </li>`
                 parentNode.innerHTML=parentNode.innerHTML + childHTML
             }
-            function deleteUser(email){
-                console.log(email)
-                localStorage.removeItem(email)
-                removeFromScreen(email)
+            function deleteUser(userId){
+            axios.delete(`https://crudcrud.com/api/9871305fba73412d824efe2b67bde99b/appoinmentBooking/${userId}`)
+        
+                .then((res)=>{
+                    removeFromScreen(userId)
+                })
+                .catch((err)=>{
+                    console.log(err)
+                })
             }
-            function removeFromScreen(email){
+            function removeFromScreen(userId){
                 const parentNode=document.getElementById('List Of User Details')
-                const childNodeToBeDeleted=document.getElementById(email)
+                const childNodeToBeDeleted=document.getElementById(userId)
                 parentNode.removeChild(childNodeToBeDeleted)
             }
             function editUserDetails(emailId,name){
                 document.getElementById('email').value=emailId
                 document.getElementById('username').value=name
-                deleteUser(emailId)
+                deleteUser(userId)
             }
       
         </script>
